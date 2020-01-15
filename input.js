@@ -1,5 +1,7 @@
 const net = require('net');
 const connect = require('./client');
+const {MOVE_UP_KEY, MOVE_DOWN_KEY, MOVE_LEFT_KEY, MOVE_RIGHT_KEY, Spam_Msg} = require('./constants');
+
 
 let connection;
 
@@ -14,7 +16,7 @@ const setupInput = function(conn) {
   stdin.resume();
 
   stdin.on('data', (data) =>{
-    console.log(data, ' data')
+    // console.log(data, ' data')
     handleUserInput(data)
   })
 
@@ -28,17 +30,21 @@ const handleUserInput = function(move) {
     console.log("Thanks for using me, ciao!")
     process.exit();
   }
-  if (move === 'w') {
+  if (move === MOVE_UP_KEY) {
     connection.write("Move: up")
   }
-  if (move === 'a') {
+  if (move === MOVE_LEFT_KEY) {
     connection.write("Move: left")
   }
-  if (move === 's') {
+  if (move === MOVE_DOWN_KEY) {
     connection.write("Move: down")
   }
-  if (move === 'd') {
+  if (move === MOVE_RIGHT_KEY) {
     connection.write("Move: right")
+  }
+
+  if (move === Spam_Msg) {                       // special key for msg
+    connection.write("Say: SUPER")
   }
 
 return move
