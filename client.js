@@ -3,17 +3,16 @@ const net = require('net');
 /**
  * Establishes connection with the game server
  */
-const connect = function() {
+const connect = function(callback) {
   const conn = net.createConnection({ 
     host: '172.46.2.204',
     port: 50541
   });
 
-  conn.on('connect', () =
-  > {
-    // console.log('Connected!');
-
+  conn.on('connect', () =>{
+    console.log('Connected! FINALLY ');
     conn.write("Name: BOB");  //sends to server
+    // conn.write("Move: up");  //sends to server
   });
 
   conn.on('data', (data) => {
@@ -28,6 +27,8 @@ const connect = function() {
 }
 
 console.log('Connecting ...');
-connect();
 
-module.export=connect
+
+module.exports={
+  connect
+}
