@@ -1,13 +1,22 @@
 const net = require('net');
 const connect = require('./client');
 
-const setupInput = function(callback) {
+let connection;
+
+
+const setupInput = function(conn) {
+  
+
   const stdin = process.stdin;
+  connection=conn
   stdin.setRawMode(true);
   stdin.setEncoding('utf8');
   stdin.resume();
 
-  stdin.on('data', callback)
+  stdin.on('data', (data) =>{
+    console.log(data, ' data')
+    handleUserInput(data)
+  })
 
 
   return stdin;
@@ -19,10 +28,20 @@ const handleUserInput = function(move) {
     console.log("Thanks for using me, ciao!")
     process.exit();
   }
+  if (move === 'w') {
+    connection.write("Move: up")
+  }
+  if (move === 'a') {
+    connection.write("Move: left")
+  }
+  if (move === 's') {
+    connection.write("Move: down")
+  }
+  if (move === 'd') {
+    connection.write("Move: right")
+  }
 
-
-  console.log(move)
-
+return move
 }
 
 module.exports={
